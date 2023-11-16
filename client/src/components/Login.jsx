@@ -40,6 +40,8 @@ function Login() {
 	};
 
 	//GAURDS//
+	// if you are logged in, you can add movie to already seen //
+	//requestData = add to faves//
 
 	// const requestData = async () => {
 	// 	try {
@@ -56,7 +58,32 @@ function Login() {
 	// 	}
 	// };
 
-	return;
+	return (
+		<div className="loginBox">
+			<div className="username">
+				<label for="usernameInput">Username:</label>
+				<input
+					type="text"
+					id="usernameInput"
+					name="usernameInput"
+					value={username}>
+					onchange{handleChange}
+				</input>
+			</div>
+
+			<div className="password">
+				<label for="passwordInput">Password:</label>
+				<input
+					type="password"
+					id="asswordInput"
+					name="passwordInput"
+					value={password}>
+					onchange{handleChange}
+				</input>
+			</div>
+			<button>Login</button>
+		</div>
+	);
 }
 
 export default Login;
