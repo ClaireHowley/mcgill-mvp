@@ -11,12 +11,15 @@ SET foreign_key_checks = 1;
 --
 
 CREATE TABLE movies (
-    MovieID INT AUTO_INCREMENT, 
+    MovieID INT AUTO_INCREMENT PRIMARY KEY, 
     MovieName VARCHAR(255), 
     MovieDirector VARCHAR(255), 
     MovieYear VARCHAR(255), 
     MovieGenre VARCHAR(255), 
     MovieLength VARCHAR(255));
+
+
+     DROP TABLE IF EXISTS `users`; 
 
   INSERT INTO movies 
   (MovieName, MovieDirector, MovieYear, MovieGenre, MovieLength)
@@ -41,3 +44,19 @@ CREATE TABLE movies (
      ('The Intern', 'Nancy Meyers', '2015', 'Drama, Comedy', '121'),
      ('Dirty Grandpa', 'Dan Mazer', '2016', 'Comedy', '102'),
      ('The Irishman', 'Martin Scorsese', '2019', 'Drama, Crime', '209');
+
+
+
+CREATE TABLE `users`(
+	`id` INT NOT NULL AUTO_INCREMENT, 
+	`username` VARCHAR(255) NOT NULL, 
+	`password` VARCHAR(255) NOT NULL, 
+	PRIMARY KEY (id)
+);
+
+CREATE TABLE `favourites`(
+	`id` INT NOT NULL AUTO_INCREMENT, 
+	`username` VARCHAR(255) NOT NULL, 
+	`movie` VARCHAR(255) NOT NULL, 
+	PRIMARY KEY (id)
+);
