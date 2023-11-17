@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
-// const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");  // guard
+// const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn"); // guard
 
 const supersecret = process.env.SUPER_SECRET;
 
@@ -41,7 +41,11 @@ router.post("/login", async (req, res) => {
 			if (!correctPassword) throw new Error("Incorrect password");
 
 			var token = jwt.sign({ user_id }, supersecret);
-			res.send({ message: "Login successful, here is your token", token });
+			res.send({
+				message: "Login successful, here is your token",
+				token,
+				user_id,
+			}); // with user_id the frontend will know who is the user is
 		} else {
 			throw new Error("User does not exist");
 		}

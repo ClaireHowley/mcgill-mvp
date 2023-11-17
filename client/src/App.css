@@ -14,7 +14,6 @@
 	justify-content: flex-start;
 	min-height: 75vh;
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
-	margin-top: 10px;
 }
 
 /* various */
@@ -42,7 +41,7 @@
 	align-items: center;
 	justify-content: center;
 	color: black;
-	margin-top: 0px;
+	/* margin-top: 20px; */
 }
 
 /* image on homepage / above movie generator */
@@ -72,7 +71,7 @@
 /* menu when hovered over */
 .menu a:hover {
 	color: dimgray;
-	text-decoration: underline;
+	/* text-decoration: underline; */
 }
 
 .movieGeneratorBox {

@@ -6,6 +6,7 @@ import Movies from "./pages/Movies";
 import Movie from "./pages/Movie";
 import Login from "./components/Login.jsx";
 import Register from "./components/Register.jsx";
+import MovieHistory from "./pages/MovieHistory.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 export default function App() {
@@ -47,6 +48,9 @@ export default function App() {
 								{" "}
 								{!isLoggedIn && <Link to="/register">Sign Up</Link>}
 							</button>
+							<button>
+								{isLoggedIn && <Link to="/moviehistory">History</Link>}
+							</button>
 						</div>
 					</div>
 				</nav>
@@ -57,7 +61,8 @@ export default function App() {
 				<Route path="/movies" element={<Movies />} />
 				<Route path="/movies/:MovieID" element={<Movie />} />
 				<Route path="/login" element={<Login onLogin={onLogin} />} />
-				<Route path="/register" element={<Register />} />
+				<Route path="/register" element={<Register onLogin={onLogin} />} />
+				<Route path="/moviehistory" element={<MovieHistory />} />
 			</Routes>
 		</>
 	);

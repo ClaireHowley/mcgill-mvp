@@ -20,7 +20,7 @@ CREATE TABLE movies (
 );
 
    DROP TABLE IF EXISTS `users`; 
-   DROP TABLE IF EXISTS `favourites`; 
+   DROP TABLE IF EXISTS `history`; 
 
   INSERT INTO movies 
   (MovieName, MovieDirector, MovieYear, MovieGenre, MovieLength)
@@ -54,8 +54,8 @@ CREATE TABLE users(
     password VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE favourites(
-   favouriteid INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE moviehistory(
+   historyid INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
    userid INT NOT NULL,
    movieid INT NOT NULL
 );
@@ -63,6 +63,6 @@ CREATE TABLE favourites(
 
 
 ALTER TABLE
-`favourites` ADD CONSTRAINT `favourites_user id_foreign` FOREIGN KEY(`userid`) REFERENCES `users`(`userid`);
+`moviehistory` ADD CONSTRAINT `moviehistory_user id_foreign` FOREIGN KEY(`userid`) REFERENCES `users`(`userid`);
 ALTER TABLE
-`favourites` ADD CONSTRAINT `favourites_movie id_foreign` FOREIGN KEY(`movieid`) REFERENCES `movies`(`MovieID`);
+`moviehistory` ADD CONSTRAINT `moviehistory_movie id_foreign` FOREIGN KEY(`movieid`) REFERENCES `movies`(`Movieid`);
