@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-export default function Login({ onLogin }) {
+export default function Register() {
 	const [credentials, setCredentials] = useState({
 		username: "",
 		password: "",
@@ -9,7 +9,7 @@ export default function Login({ onLogin }) {
 	// the input from the user  //
 
 	// the message from the database //
-	// const [data, setData] = useState(null);
+	const [data, setData] = useState(null);
 
 	const { username, password } = credentials;
 
@@ -18,16 +18,15 @@ export default function Login({ onLogin }) {
 		setCredentials({ ...credentials, [name]: value });
 	};
 
-	const login = async () => {
+	const register = async () => {
 		try {
-			const { data } = await axios("/api/auth/login", {
+			const { data } = await axios("/api/auth/register", {
 				method: "POST",
 				data: credentials,
 			});
 
 			//store it locally
 			localStorage.setItem("token", data.token);
-			onLogin();
 			console.log(data.message, data.token);
 			setData(data.message);
 		} catch (error) {
@@ -40,27 +39,8 @@ export default function Login({ onLogin }) {
 		localStorage.removeItem("token");
 	};
 
-	//GAURDS//
-	// if you are logged in, you can add movie to already seen //
-	//requestData = add to faves//
-
-	const requestData = async () => {
-		try {
-			const { data } = await axios("/api/auth/profile", {
-				headers: {
-					authorization: "Bearer " + localStorage.getItem("token"),
-				},
-			});
-			setData(data.message);
-			console.log(data.message);
-		} catch (error) {
-			console.log(error);
-			setData(error.message);
-		}
-	};
-
 	return (
-		<div className="loginBox">
+		<div className="registerbox">
 			<div className="username">
 				<label htmlFor="usernameInput">Username:</label>
 				<input
@@ -82,7 +62,7 @@ export default function Login({ onLogin }) {
 					onChange={handleChange}
 				/>
 			</div>
-			{/* <button onClick={requestdata}>Login</button> */}
+			<button>Sign Up</button>
 		</div>
 	);
 }
