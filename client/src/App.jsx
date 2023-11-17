@@ -44,7 +44,8 @@ export default function App() {
 							</button>
 							<button>{!isLoggedIn && <Link to="/login">Login</Link>}</button>
 							<button>
-								<Link to="/register">Sign Up</Link>
+								{" "}
+								{!isLoggedIn && <Link to="/register">Sign Up</Link>}
 							</button>
 						</div>
 					</div>
