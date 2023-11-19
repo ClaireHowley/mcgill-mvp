@@ -1,19 +1,26 @@
 /* from index.html */
-#root {
+/* #root {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-}
+} */
 
 /* whole home.jsx */
 .pageContainer {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: flex-start;
-	min-height: 75vh;
-	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	display: grid;
+	grid-template-columns: 4fr 4fr;
+	background-image: url("/posters/main.png");
+	background-size: cover; /*covers all viewpoint */
+	background: linear-gradient(
+			rgba(255, 255, 255, 0.5),
+			rgba(255, 255, 255, 0.5)
+		),
+		url("/posters/main.png"); /* Add a gradient overlay to create the fading effect */
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 100%; /* set to cover the whole viewpoint height*/
 }
 
 /* various */
@@ -32,21 +39,17 @@
 	justify-content: center;
 	color: black;
 	margin-bottom: 0px;
+	padding-right: 20%;
 }
 
 /* Which Robert de Niro movie should you watch? */
 .subheading {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+	align-items: left;
+	justify-content: left;
 	color: black;
-	/* margin-top: 20px; */
-}
-
-/* image on homepage / above movie generator */
-.mainImage {
-	align-items: center;
+	padding-left: 40%;
 }
 
 /* menu options from app.jsx */
@@ -55,35 +58,51 @@
 	justify-content: center;
 	align-items: center;
 	white-space: nowrap;
-	margin-bottom: 0;
+	background-color: gold; /* why need both*/
+}
+
+.menuButtons {
+	border-radius: 0%;
+	border: 1px solid transparent;
+	font-size: 1.4em;
+	font-weight: 500;
+	font-family: inherit;
+	text-align: center;
+	cursor: pointer;
+	transition: border-color 0.25s;
+	display: grid;
+	/* grid-template-columns: 1fr 1fr 1fr 1fr 1fr; */
 	background-color: gold;
-	width: 1000px;
 }
 
 /* all menu options from app.jsx */
-.menu a {
-	color: black;
-	padding: 10px;
-	margin-right: 20px;
-	font-size: 22px;
-}
 
-/* menu when hovered over */
-.menu a:hover {
-	color: dimgray;
-	/* text-decoration: underline; */
+.menu a {
+	font-weight: 500;
+	color: #515748;
+	text-decoration: inherit;
+	padding: 20px;
+	gap: 10px;
+}
+a:hover,
+button:hover {
+	color: darkgray;
 }
 
 .movieGeneratorBox {
-	margin-top: 40px;
-	padding: 10%;
-	width: 450px;
-	height: 200px;
+	display: flex;
+	flex-direction: column;
+	min-height: 70vh;
+	max-width: 450px; /* Adjust the value based on your desired maximum width */
+	margin: 0 auto; /* Center the box horizontally */
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
 	border: 1px solid grey;
-	border-radius: 40px;
+	border-radius: 50px;
 	box-shadow: 1px 3px 3px 3px rgb(194, 194, 194);
-	margin-bottom: 20px;
-	font-size: 17px;
+	align-items: center;
+	justify-content: center;
+	background-color: #fff;
+	margin-top: 20px;
 }
 
 /* title on movie generator page */
@@ -103,6 +122,7 @@
 
 /* 3 dropdown boxes on movie generator page */
 .form-select {
+	display: flex;
 	width: 100%;
 	padding: 10px;
 	border: 1px solid;
@@ -114,8 +134,10 @@
 
 /* button on movie generator page */
 .button {
+	display: flex;
 	background-color: gold;
-	color: black;
+	color: #515748;
+	font-weight: 300;
 	border: none;
 	border-radius: 5px;
 	cursor: pointer;
@@ -124,24 +146,25 @@
 	font-size: 15px;
 	margin-left: auto;
 	margin-right: auto;
-	padding: 7px 60px;
+	padding: 7px 50px;
 }
 
 /* button on movie generator page */
 .buttonSection {
+	display: flex;
 	text-align: center;
-	display: grid;
-	grid-template-columns: 1fr 1fr;
+	justify-content: center;
 	gap: 20px;
 	width: 400px;
 	margin-left: auto;
 	margin-right: auto;
+	padding-top: 30px;
 }
 
 /* single button */
 #singleButton {
+	display: flex;
 	text-align: center;
-	grid-template-columns: 1fr;
 	width: 100%;
 	align-items: center;
 	justify-content: center;
@@ -151,28 +174,27 @@
 /* error message on movie generator page, when no movie found */
 .errorMessage {
 	color: red;
-	display: block;
+	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 }
 
-/* movie resuts on movie generator page - text and image */
+/* movie results on movie generator page - text and image */
 .results {
-	font-size: 40px;
-	display: flex;
-	flex-direction: column;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
 	align-items: center;
-	justify-content: center;
+	font-size: 40px;
 	margin-top: 10px;
 }
 
 .titleAllMovies {
-	font-size: 40px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	font-size: 40px;
 	color: black;
 	margin-top: 0;
 	margin-bottom: 15px;

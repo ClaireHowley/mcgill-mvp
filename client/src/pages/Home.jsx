@@ -130,9 +130,7 @@ function Home() {
 
 	return (
 		<div className="pageContainer">
-			{/* 
-<div className="movieGeneratorBox"> */}
-			<div>
+			<div className="movieGeneratorBox">
 				<h1 className="titleMovieGenerator">Movie Generator</h1>
 
 				<div className="centered">
@@ -197,24 +195,24 @@ function Home() {
 					</div>
 				</div>
 				{/* display movie from getRandomMovie if one was successfully found */}
-				{randomMovie ? (
-					<div className="results">
-						<p>{randomMovie.MovieName}</p>
-						<img
-							src={`/posters/${randomMovie.MovieID}.jpg`}
-							alt="Movie Poster"
-							style={{ maxWidth: "250px", height: "auto" }}
-						/>
-					</div>
-				) : (
-					// display error message if no movie is found and hasSearched is set to true
-					hasSearched && (
-						<div className="errorMessage">
-							Uh oh, we weren't able to find a match. Click Reset to try again.
-						</div>
-					)
-				)}
 			</div>
+			{randomMovie ? (
+				<div className="results">
+					{/* <p>{randomMovie.MovieName}</p> */}
+					<img
+						src={`/posters/${randomMovie.MovieID}.jpg`}
+						alt="Movie Poster"
+						style={{ maxWidth: "250px", height: "auto" }}
+					/>
+				</div>
+			) : (
+				// display error message if no movie is found and hasSearched is set to true
+				hasSearched && (
+					<div className="errorMessage">
+						Uh oh, we weren't able to find a match. Click Reset to try again.
+					</div>
+				)
+			)}
 		</div>
 	);
 }
