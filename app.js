@@ -10,6 +10,8 @@ const resultsRouter = require("./routes/results");
 const moviesRouter = require("./routes/movies");
 const movieRouter = require("./routes/movie");
 const loginRouter = require("./routes/login");
+const signupRouter = require("./routes/register");
+const moviehistoryRouter = require("./routes/moviehistory");
 
 const app = express();
 
@@ -24,7 +26,8 @@ app.use("/api/results", resultsRouter);
 app.use("/api/movies", moviesRouter);
 app.use("/api/movie", movieRouter);
 app.use("/api/auth", loginRouter); // auth to not repeat login in url
-// app.use("/api/home", homeRouter);
+app.use("/api/moviehistory", moviehistoryRouter);
+app.use("/api/auth", signupRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

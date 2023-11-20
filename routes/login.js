@@ -5,25 +5,25 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
-// const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn"); // guard
+// // const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn"); // guard
 
 const supersecret = process.env.SUPER_SECRET;
 
-router.post("/register", async (req, res) => {
-	const { username, password } = req.body;
+// router.post("/register", async (req, res) => {
+// 	const { username, password } = req.body;
 
-	try {
-		const hash = await bcrypt.hash(password, saltRounds);
+// 	try {
+// 		const hash = await bcrypt.hash(password, saltRounds);
 
-		await db(
-			`INSERT INTO users (username, password) VALUES ("${username}", "${hash}")`
-		);
+// 		await db(
+// 			`INSERT INTO users (username, password) VALUES ("${username}", "${hash}")`
+// 		);
 
-		res.send({ message: "Register successful" });
-	} catch (err) {
-		res.status(400).send({ message: err.message });
-	}
-});
+// 		res.send({ message: "Register successful" });
+// 	} catch (err) {
+// 		res.status(400).send({ message: err.message });
+// 	}
+// });
 
 router.post("/login", async (req, res) => {
 	const { username, password } = req.body;
@@ -34,7 +34,7 @@ router.post("/login", async (req, res) => {
 		);
 		const user = results.data[0];
 		if (user) {
-			const user_id = user.id;
+			const user_id = user.userid;
 
 			const correctPassword = await bcrypt.compare(password, user.password);
 

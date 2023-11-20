@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../model/helper");
+const userShouldBeLoggedIn = require("../guards/usersShouldBeLoggedIn");
 
 // movies?genre=action&time=120&year=2010
 //get all moves
@@ -17,12 +18,13 @@ router.get("/", async function (req, res, next) {
 //if genre, time, and/or year have a value then add to the url
 //and add to query to get from api
 //put results in random order, limit to 1 so only 1 is presented
-router.get("/random", async function (req, res, next) {
+router.get("/random", userShouldBeLoggedIn, async function (req, res, next) {
 	let { genre, time, year } = req.query;
+	const { user_id } = req; // users must be logging in has user_id
 
 	let query = `
   SELECT * FROM movies 
-  WHERE 1 = 1`;
+  WHERE MovieID NOT IN (SELECT movieid FROM moviehistory WHERE userid = ${user_id})`;
 
 	if (genre) {
 		query += ` AND MovieGenre LIKE "%${genre}%"`;

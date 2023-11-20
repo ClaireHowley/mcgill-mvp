@@ -10,8 +10,6 @@ export default function App() {
 	//   movieyear: ""
 	// });
 
-	const [profile, setProfile] = useState(null);
-
 	useEffect(() => {
 		getMovies();
 	}, []);

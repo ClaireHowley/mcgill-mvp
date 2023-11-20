@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import AuthContext from "../contexts/auth";
 import axios from "axios";
 
-export default function Login({ onLogin }) {
+export default function Login() {
+	const { onLogin } = useContext(AuthContext);
+
 	const [credentials, setCredentials] = useState({
 		username: "",
 		password: "",
@@ -28,11 +31,11 @@ export default function Login({ onLogin }) {
 			//store it locally
 			localStorage.setItem("token", data.token);
 			onLogin();
-			console.log(data.message, data.token);
-			setData(data.message);
+			// console.log(data.message, data.token);
+			// setData(data.message);
 		} catch (error) {
-			console.log(error);
-			setData(error.message);
+			// console.log(error);
+			// setData(error.message);
 		}
 	};
 
@@ -44,20 +47,20 @@ export default function Login({ onLogin }) {
 	// if you are logged in, you can add movie to already seen //
 	//requestData = add to faves//
 
-	const requestData = async () => {
-		try {
-			const { data } = await axios("/api/auth/profile", {
-				headers: {
-					authorization: "Bearer " + localStorage.getItem("token"),
-				},
-			});
-			setData(data.message);
-			console.log(data.message);
-		} catch (error) {
-			console.log(error);
-			setData(error.message);
-		}
-	};
+	// const requestData = async () => {
+	// 	try {
+	// 		const { data } = await axios("/api/auth/login", {
+	// 			headers: {
+	// 				authorization: "Bearer " + localStorage.getItem("token"),
+	// 			},
+	// 		});
+	// 		setData(data.message);
+	// 		console.log(data.message);
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 		setData(error.message);
+	// 	}
+	// };
 
 	return (
 		<div className="loginBox">
@@ -82,7 +85,7 @@ export default function Login({ onLogin }) {
 					onChange={handleChange}
 				/>
 			</div>
-			{/* <button onClick={requestdata}>Login</button> */}
+			<button onClick={login}>Login</button>
 		</div>
 	);
 }

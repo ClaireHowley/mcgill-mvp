@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import MovieHistory from "./MovieHistory";
 import "../App.css";
 
 function Home() {
@@ -79,6 +80,29 @@ function Home() {
 		console.log(year);
 	};
 
+	const addMovieHistory = async (movieid) => {
+		console.log(id);
+		try {
+			const response = await fetch("/api/moviehistory", {
+				method: "POST",
+
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem("token")}`,
+				},
+			});
+
+			if (!response.ok) {
+				throw new Error(
+					`Server responded with status ${response.status}: ${errorMessage}`
+				);
+			}
+
+			const movieHistoryData = await response.json();
+			setMovieHistory(movieHistoryData);
+		} catch (error) {
+			console.error("Oops, something went wrong", error);
+		}
+	};
 	//function to get random movie suggestion based on the question inputs
 	const getRandomMovie = async () => {
 		try {
@@ -89,15 +113,22 @@ function Home() {
 			//if not questions answered / no input then the function won't work
 			if (genre || time || year) {
 				let response = await fetch(
-					`/api/movies/random?genre=${genre}&time=${time}&year=${year}`
-				);
+					`/api/movies/random?genre=${genre}&time=${time}&year=${year}`,
+					{
+						headers: {
+							authorization: `Bearer ${localStorage.getItem("token")}`,
+						},
+					}
+				); //headers --> badge here
 				if (response.ok) {
 					//update based on api response / random movie
 					let movieDisplay = await response.json();
+					console.log(movieDisplay[0]);
 					//set random movie with the first object
 					setRandomMovie(movieDisplay[0]);
 					//set to true so error message can display if needed
 					setHasSearched(true);
+					addMovieHistory(movieDisplay[0].MovieID);
 				} else {
 					setError(
 						"Uh oh, we weren't able to find a match. Click Movie Generator to try again."

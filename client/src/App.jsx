@@ -9,6 +9,9 @@ import Register from "./components/Register.jsx";
 import MovieHistory from "./pages/MovieHistory.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import AuthContext from "./contexts/auth.js";
+import RequireAuth from "./components/RequireAuth.jsx";
+
 export default function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -16,11 +19,21 @@ export default function App() {
 
 	function onLogin() {
 		setIsLoggedIn(true);
-		navigate("/app");
+		navigate("/");
 	}
 
+	function onLogout() {
+		setIsLoggedIn(false);
+		navigate("/");
+	}
+
+	const authObject = {
+		isLoggedIn,
+		onLogin,
+	};
+
 	return (
-		<>
+		<AuthContext.Provider value={authObject}>
 			<div className="homepage">
 				<div className="titleMain">
 					<h1>GoodMovies for GoodFellas</h1>
@@ -33,9 +46,7 @@ export default function App() {
 						<button type="button" className="menuButtons">
 							<Link to="/">Movie Generator</Link>
 						</button>
-						<button type="button" className="menuButtons">
-							<Link to="/movies">All Movies</Link>
-						</button>
+
 						<button type="button" className="menuButtons">
 							{!isLoggedIn && <Link to="/login">Login</Link>}
 						</button>
@@ -43,9 +54,18 @@ export default function App() {
 							{" "}
 							{!isLoggedIn && <Link to="/register">Sign Up</Link>}
 						</button>
+
 						<button type="button" className="menuButtons">
 							{isLoggedIn && <Link to="/moviehistory">History</Link>}
 						</button>
+						<button type="button" className="menuButtons">
+							{isLoggedIn && <Link to="/movies">All Movies</Link>}
+						</button>
+						{isLoggedIn && (
+							<button type="button" className="menuButtons" onClick={onLogout}>
+								Log Out
+							</button>
+						)}
 					</div>
 				</nav>
 			</div>
@@ -54,10 +74,10 @@ export default function App() {
 				<Route path="/" element={<Home />} />
 				<Route path="/movies" element={<Movies />} />
 				<Route path="/movies/:MovieID" element={<Movie />} />
-				<Route path="/login" element={<Login onLogin={onLogin} />} />
-				<Route path="/register" element={<Register onLogin={onLogin} />} />
+				<Route path="/login" element={<Login />} />
+				<Route path="/register" element={<Register />} />
 				<Route path="/moviehistory" element={<MovieHistory />} />
 			</Routes>
-		</>
+		</AuthContext.Provider>
 	);
 }

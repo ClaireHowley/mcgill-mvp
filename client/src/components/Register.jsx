@@ -1,15 +1,17 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
+import AuthContext from "../contexts/auth";
 
 export default function Register() {
+	// const { onRegister } = useContext(AuthContext);
+
 	const [credentials, setCredentials] = useState({
 		username: "",
 		password: "",
 	});
-	// the input from the user  //
 
 	// the message from the database //
-	const [data, setData] = useState(null);
+	// const [data, setData] = useState(null);
 
 	const { username, password } = credentials;
 
@@ -27,16 +29,15 @@ export default function Register() {
 
 			//store it locally
 			localStorage.setItem("token", data.token);
-			console.log(data.message, data.token);
-			setData(data.message);
+			// console.log(data.message, data.token);
+			// setData(data.message);
 		} catch (error) {
-			console.log(error);
-			setData(error.message);
+			// console.log(error);
+			// setData(error.message);
 		}
-	};
-
-	const logout = () => {
-		localStorage.removeItem("token");
+		// const logout = () => {
+		// 	localStorage.removeItem("token");
+		// }; // necessary here
 	};
 
 	return (
@@ -62,7 +63,7 @@ export default function Register() {
 					onChange={handleChange}
 				/>
 			</div>
-			<button>Sign Up</button>
+			<button onClick={register}>Sign Up</button>
 		</div>
 	);
 }
