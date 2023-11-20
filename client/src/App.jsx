@@ -27,9 +27,15 @@ export default function App() {
 		navigate("/");
 	}
 
+	function onRegister() {
+		setIsLoggedIn(true);
+		navigate("/");
+	}
+
 	const authObject = {
 		isLoggedIn,
 		onLogin,
+		onRegister,
 	};
 
 	return (
@@ -50,17 +56,19 @@ export default function App() {
 						<button type="button" className="menuButtons">
 							{!isLoggedIn && <Link to="/login">Login</Link>}
 						</button>
+
 						<button type="button" className="menuButtons">
-							{" "}
 							{!isLoggedIn && <Link to="/register">Sign Up</Link>}
 						</button>
 
 						<button type="button" className="menuButtons">
 							{isLoggedIn && <Link to="/moviehistory">History</Link>}
 						</button>
+
 						<button type="button" className="menuButtons">
 							{isLoggedIn && <Link to="/movies">All Movies</Link>}
 						</button>
+
 						{isLoggedIn && (
 							<button type="button" className="menuButtons" onClick={onLogout}>
 								Log Out

@@ -3,15 +3,12 @@ import axios from "axios";
 import AuthContext from "../contexts/auth";
 
 export default function Register() {
-	// const { onRegister } = useContext(AuthContext);
+	const { onRegister } = useContext(AuthContext);
 
 	const [credentials, setCredentials] = useState({
 		username: "",
 		password: "",
 	});
-
-	// the message from the database //
-	// const [data, setData] = useState(null);
 
 	const { username, password } = credentials;
 
@@ -29,6 +26,7 @@ export default function Register() {
 
 			//store it locally
 			localStorage.setItem("token", data.token);
+			onRegister();
 			// console.log(data.message, data.token);
 			// setData(data.message);
 		} catch (error) {
