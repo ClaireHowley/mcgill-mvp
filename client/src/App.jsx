@@ -24,7 +24,8 @@ export default function App() {
 
 	function onLogout() {
 		setIsLoggedIn(false);
-		navigate("/");
+		localStorage.removeItem("token"); // necessary?
+		navigate("/login");
 	}
 
 	function onRegister() {

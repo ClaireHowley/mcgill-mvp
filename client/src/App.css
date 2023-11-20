@@ -1,9 +1,9 @@
 /* from index.html */
-/* #root {
+/* body {
+	margin: 0;
 	display: flex;
-	flex-direction: column;
-	align-items: center;
 	justify-content: center;
+	align-items: center;
 } */
 
 /* whole home.jsx */
@@ -70,9 +70,14 @@
 	text-align: center;
 	cursor: pointer;
 	transition: border-color 0.25s;
-	display: grid;
-	/* grid-template-columns: 1fr 1fr 1fr 1fr 1fr; */
+	/* display: grid; */
+	/* grid-template-columns: repeat(
+		5,
+		1fr
+	); Use repeat to simplify column definition */
+	/* grid-column-gap: 10px;  */
 	background-color: gold;
+	color: #515748;
 }
 
 /* all menu options from app.jsx */
@@ -202,8 +207,23 @@ button:hover {
 }
 
 /* list on all movies page */
+.movieContainer {
+	background-image: url("/posters/untouchables.jpg");
+	background-size: cover; /*covers all viewpoint */
+	background: linear-gradient(
+			rgba(255, 255, 255, 0.5),
+			rgba(255, 255, 255, 0.5)
+		),
+		url("/posters/untouchables.jpg"); /* Add a gradient overlay to create the fading effect */
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 100%; /* set to cover the whole viewpoint height*/
+}
+
 .movieList a {
 	display: flex;
+	white-space: nowrap;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
@@ -240,4 +260,75 @@ button:hover {
 .moviePoster {
 	margin-top: 20px;
 	margin-bottom: 20px;
+}
+
+/* login and register box*/
+.loginBox {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 300px;
+	margin: auto;
+	margin-top: 50px;
+	padding: 20px;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.loginBox input {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 10px;
+	box-sizing: border-box;
+}
+
+.loginBox button {
+	width: 100%;
+	padding: 10px;
+	background-color: #4caf50;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.loginBox button:hover {
+	background-color: #45a049;
+}
+
+.registerBox {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 300px;
+	margin: auto;
+	margin-top: 50px;
+	padding: 20px;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.registerBox input {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 10px;
+	box-sizing: border-box;
+}
+
+.registerBox button {
+	width: 100%;
+	padding: 10px;
+	background-color: #4c4eaf;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.registerBox button:hover {
+	background-color: #3739a1;
 }

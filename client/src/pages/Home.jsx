@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MovieHistory from "./MovieHistory";
 import "../App.css";
+import { Link } from "react-router-dom";
 
 function Home() {
 	const [genre, setGenre] = useState("");
@@ -9,6 +10,7 @@ function Home() {
 	const [randomMovie, setRandomMovie] = useState(null);
 	const [error, setError] = useState("");
 	const [hasSearched, setHasSearched] = useState(false);
+	// const [movieHistory, setMovieHistory] = useState([]);
 
 	// console.log("test");
 
@@ -80,29 +82,30 @@ function Home() {
 		console.log(year);
 	};
 
-	const addMovieHistory = async (movieid) => {
-		console.log(id);
-		try {
-			const response = await fetch("/api/moviehistory", {
-				method: "POST",
+	// const addMovieHistory = async (movieid) => {
+	// 	console.log(id);
+	// 	try {
+	// 		const response = await fetch("/api/moviehistory", {
+	// 			method: "POST",
 
-				headers: {
-					Authorization: `Bearer ${localStorage.getItem("token")}`,
-				},
-			});
+	// 			headers: {
+	// 				Authorization: `Bearer ${localStorage.getItem("token")}`,
+	// 			},
+	// 		});
 
-			if (!response.ok) {
-				throw new Error(
-					`Server responded with status ${response.status}: ${errorMessage}`
-				);
-			}
+	// 		if (!response.ok) {
+	// 			throw new Error(
+	// 				`Server responded with status ${response.status}: ${errorMessage}`
+	// 			);
+	// 		}
 
-			const movieHistoryData = await response.json();
-			setMovieHistory(movieHistoryData);
-		} catch (error) {
-			console.error("Oops, something went wrong", error);
-		}
-	};
+	// 		const movieHistoryData = await response.json();
+	// 		setMovieHistory(movieHistoryData);
+	// 	} catch (error) {
+	// 		console.error("Oops, something went wrong", error);
+	// 	}
+	// };
+
 	//function to get random movie suggestion based on the question inputs
 	const getRandomMovie = async () => {
 		try {
@@ -128,7 +131,7 @@ function Home() {
 					setRandomMovie(movieDisplay[0]);
 					//set to true so error message can display if needed
 					setHasSearched(true);
-					addMovieHistory(movieDisplay[0].MovieID);
+					// addMovieHistory(movieDisplay[0].MovieID);
 				} else {
 					setError(
 						"Uh oh, we weren't able to find a match. Click Movie Generator to try again."
@@ -225,11 +228,9 @@ function Home() {
 						</button>
 					</div>
 				</div>
-				{/* display movie from getRandomMovie if one was successfully found */}
 			</div>
 			{randomMovie ? (
 				<div className="results">
-					{/* <p>{randomMovie.MovieName}</p> */}
 					<img
 						src={`/posters/${randomMovie.MovieID}.jpg`}
 						alt="Movie Poster"

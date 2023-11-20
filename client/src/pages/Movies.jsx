@@ -29,13 +29,18 @@ export default function App() {
 	}
 
 	return (
-		<div>
+		<div className="movieContainer">
 			<h1 className="titleAllMovies">All Movies</h1>
 			<div className="movieList">
 				{movies.map((m) => (
 					<div key={m.MovieID}>
 						<Link to={`/movies/${m.MovieID}`}>
-							{m.MovieName} ({m.MovieDirector}, {m.MovieYear})
+							{m.MovieName} ({m.MovieDirector}, {m.MovieYear}){" "}
+							<img
+								src={`/posters/${m.MovieID}.jpg`}
+								alt="Movie Poster"
+								style={{ maxWidth: "250px", height: "auto" }}
+							/>
 						</Link>
 					</div>
 				))}

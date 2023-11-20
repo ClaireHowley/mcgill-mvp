@@ -39,7 +39,7 @@ export default function Register() {
 	};
 
 	return (
-		<div className="registerbox">
+		<div className="registerBox">
 			<div className="username">
 				<label htmlFor="usernameInput">Username:</label>
 				<input

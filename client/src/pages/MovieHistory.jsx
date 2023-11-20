@@ -4,15 +4,28 @@ import "../App.css";
 export default function MovieHistory() {
 	const [movieHistory, setMovieHistory] = useState([]);
 
-	useEffect(() => {
-		addMovieHistory();
-	}, []); // Empty dependency array means this effect runs once after the initial render
+	const addMovieHistory = async (movieid) => {
+		try {
+			const response = await fetch("/api/moviehistory", {
+				method: "POST",
+
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem("token")}`,
+				},
+			});
+
+			const movieHistoryData = await response.json();
+			setMovieHistory(movieHistoryData);
+		} catch (error) {
+			console.error("Oops, something went wrong");
+		}
+	};
 
 	return (
 		<div>
 			{movieHistory.map((movie) => (
 				<div key={movie.MovieID}>
-					{movie.Title} - {movie.ReleaseYear}
+					{movie.MovieName}, {movie.MovieYear}
 				</div>
 			))}
 		</div>

@@ -6,6 +6,7 @@ const userShouldBeLoggedIn = require("../guards/usersShouldBeLoggedIn"); // not 
 router.post("/", userShouldBeLoggedIn, async (req, res) => {
 	const { movieid } = req.body; // what is in the request
 	const userid = req.user_id; // you have token in frontend, don't pass user id in req.body
+	console.log(userid);
 	try {
 		if (!userid || !movieid) {
 			res.status(404).json({ error: "User or movie not found" });

@@ -43,25 +43,6 @@ export default function Login() {
 		localStorage.removeItem("token");
 	};
 
-	//GAURDS//
-	// if you are logged in, you can add movie to already seen //
-	//requestData = add to faves//
-
-	// const requestData = async () => {
-	// 	try {
-	// 		const { data } = await axios("/api/auth/login", {
-	// 			headers: {
-	// 				authorization: "Bearer " + localStorage.getItem("token"),
-	// 			},
-	// 		});
-	// 		setData(data.message);
-	// 		console.log(data.message);
-	// 	} catch (error) {
-	// 		console.log(error);
-	// 		setData(error.message);
-	// 	}
-	// };
-
 	return (
 		<div className="loginBox">
 			<div className="username">
@@ -89,3 +70,22 @@ export default function Login() {
 		</div>
 	);
 }
+
+//GAURDS//
+// if you are logged in, you can add movie to already seen //
+//requestData = add to faves//
+
+// const requestData = async () => {
+// 	try {
+// 		const { data } = await axios("/api/auth/login", {
+// 			headers: {
+// 				authorization: "Bearer " + localStorage.getItem("token"),
+// 			},
+// 		});
+// 		setData(data.message);
+// 		console.log(data.message);
+// 	} catch (error) {
+// 		console.log(error);
+// 		setData(error.message);
+// 	}
+// };
