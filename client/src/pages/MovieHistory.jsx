@@ -38,7 +38,6 @@ export default function MovieHistory() {
 						/>
 					</div>
 				))}
-			;
 		</div>
 	);
 }
