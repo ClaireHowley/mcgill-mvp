@@ -16,7 +16,7 @@ export default function MovieHistory() {
 			});
 			const movieHistoryData = await response.json();
 			console.log("Movie History Data:", movieHistoryData);
-			setMovieHistoryList(movieHistoryData.data || []);
+			setMovieHistoryList(movieHistoryData);
 		} catch (error) {
 			console.error("Oops, something went wrong", error);
 		}
@@ -30,7 +30,7 @@ export default function MovieHistory() {
 		<div>
 			{movieHistoryList &&
 				movieHistoryList.map((item) => (
-					<div key={item.movieid}>
+					<div key={item.historyid}>
 						<img
 							src={`/posters/${item.movieid}.jpg`}
 							alt="Movie Poster"

@@ -28,11 +28,16 @@ router.post("/", userShouldBeLoggedIn, async (req, res) => {
 router.get("/", userShouldBeLoggedIn, async (req, res) => {
 	const userid = req.user_id;
 	try {
-		await db(`SELECT * FROM moviehistory WHERE userid = ${userid}`);
+		const results = await db(
+			`SELECT * FROM moviehistory WHERE userid = ${userid}`
+		);
 		const userhistory = results.data;
 		res.send(userhistory);
 	} catch (err) {
-		res.status(500).send({ message: "Internal Server Error" });
+		console.error("Error fetching movie history:", err);
+		res
+			.status(500)
+			.json({ error: "Internal Server Error", details: err.message });
 	}
 });
 
