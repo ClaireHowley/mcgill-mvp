@@ -5,11 +5,14 @@ const userShouldBeLoggedIn = require("../guards/usersShouldBeLoggedIn"); // not 
 
 router.post("/", userShouldBeLoggedIn, async (req, res) => {
 	const { movieid } = req.body; // what is in the request
+	// console.log(req.body);
 	const userid = req.user_id; // you have token in frontend, don't pass user id in req.body
-	console.log(userid);
+	// console.log(userid);
 	try {
-		if (!userid || !movieid) {
-			res.status(404).json({ error: "User or movie not found" });
+		// console.log("User ID:", userid);
+		// console.log("Movie ID:", movieid);
+		if (!userid || movieid === undefined) {
+			return res.status(400).json({ error: "Invalid user or movie ID" });
 		}
 
 		await db(
@@ -17,7 +20,19 @@ router.post("/", userShouldBeLoggedIn, async (req, res) => {
 		);
 		res.send({ message: "added to movie history" });
 	} catch (error) {
+		console.error("Error in movie history route:", error);
 		return res.status(500).json({ error: "Internal Server Error" });
+	}
+});
+
+router.get("/", userShouldBeLoggedIn, async (req, res) => {
+	const userid = req.user_id;
+	try {
+		await db(`SELECT * FROM moviehistory WHERE userid = ${userid}`);
+		const userhistory = results.data;
+		res.send(userhistory);
+	} catch (err) {
+		res.status(500).send({ message: "Internal Server Error" });
 	}
 });
 

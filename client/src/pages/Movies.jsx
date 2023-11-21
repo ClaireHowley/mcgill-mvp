@@ -4,11 +4,6 @@ import "../App.css";
 
 export default function App() {
 	const [movies, setMovies] = useState([]);
-	// const [movie, setMovie] = useState({
-	//   movienmame: "",
-	//   moviedirector: "",
-	//   movieyear: ""
-	// });
 
 	useEffect(() => {
 		getMovies();

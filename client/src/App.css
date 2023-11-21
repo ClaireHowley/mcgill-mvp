@@ -98,7 +98,7 @@ button:hover {
 	display: flex;
 	flex-direction: column;
 	min-height: 70vh;
-	max-width: 450px; /* Adjust the value based on your desired maximum width */
+	max-width: 450px;
 	margin: 0 auto; /* Center the box horizontally */
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
 	border: 1px solid grey;
@@ -108,6 +108,23 @@ button:hover {
 	justify-content: center;
 	background-color: #fff;
 	margin-top: 20px;
+}
+
+.errorMessage {
+	color: red;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+/* movie results on movie generator page - text and image */
+.results {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	align-items: center;
+	font-size: 40px;
+	margin-top: 10px;
 }
 
 /* title on movie generator page */
@@ -176,24 +193,6 @@ button:hover {
 	margin-bottom: 25px;
 }
 
-/* error message on movie generator page, when no movie found */
-.errorMessage {
-	color: red;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-}
-
-/* movie results on movie generator page - text and image */
-.results {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	align-items: center;
-	font-size: 40px;
-	margin-top: 10px;
-}
-
 .titleAllMovies {
 	display: flex;
 	flex-direction: column;
@@ -233,6 +232,8 @@ button:hover {
 	margin-top: 10px;
 	margin-bottom: 20px;
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	overflow-x: auto; /* Enable horizontal scrolling */
+	scroll-behavior: smooth; /* Enable smooth scrolling behavior */
 }
 
 /* list of movies when hovered over */

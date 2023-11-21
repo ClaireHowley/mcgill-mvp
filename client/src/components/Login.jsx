@@ -9,10 +9,6 @@ export default function Login() {
 		username: "",
 		password: "",
 	});
-	// the input from the user  //
-
-	// the message from the database //
-	// const [data, setData] = useState(null);
 
 	const { username, password } = credentials;
 
@@ -31,12 +27,7 @@ export default function Login() {
 			//store it locally
 			localStorage.setItem("token", data.token);
 			onLogin();
-			// console.log(data.message, data.token);
-			// setData(data.message);
-		} catch (error) {
-			// console.log(error);
-			// setData(error.message);
-		}
+		} catch (error) {}
 	};
 
 	const logout = () => {
@@ -70,22 +61,3 @@ export default function Login() {
 		</div>
 	);
 }
-
-//GAURDS//
-// if you are logged in, you can add movie to already seen //
-//requestData = add to faves//
-
-// const requestData = async () => {
-// 	try {
-// 		const { data } = await axios("/api/auth/login", {
-// 			headers: {
-// 				authorization: "Bearer " + localStorage.getItem("token"),
-// 			},
-// 		});
-// 		setData(data.message);
-// 		console.log(data.message);
-// 	} catch (error) {
-// 		console.log(error);
-// 		setData(error.message);
-// 	}
-// };

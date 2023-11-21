@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import MovieHistory from "./MovieHistory";
 import "../App.css";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
 	const [genre, setGenre] = useState("");
@@ -10,9 +9,7 @@ function Home() {
 	const [randomMovie, setRandomMovie] = useState(null);
 	const [error, setError] = useState("");
 	const [hasSearched, setHasSearched] = useState(false);
-	// const [movieHistory, setMovieHistory] = useState([]);
-
-	// console.log("test");
+	const [movieHistory, setMovieHistory] = useState([]);
 
 	//options for genre, time, year questions
 	//label as appears on front end
@@ -31,16 +28,14 @@ function Home() {
 		{ label: "War", value: "War" },
 	];
 
-	// ['Action', 'Comedy', 'Crime', 'Drama', 'Family', 'Musical', 'Romance', 'Science Fiction', 'Thriller', 'War'];
-	function genreQuestion({ onGenreSelect }) {}
-
 	//event handler functions to select and set genre, time, year answers
 	const handleGenreSelect = (event) => {
 		//assign event target / the option clicked
 		const genre = event.target.value;
-
+		reset();
 		//set this as the genre, time, year etc
 		setGenre(genre);
+
 		console.log(genre);
 	};
 
@@ -53,13 +48,11 @@ function Home() {
 		{ label: "Up to 300 minutes", value: "300" },
 	];
 
-	// ['Up to 90 minutes', 'Up to 120 minutes', 'Up to 180 minutes', 'Up to 240 minutes', 'Up to 300 minutes'];
-	function timeQuestion({ onTimeSelect }) {}
-
 	const handleTimeSelect = (event) => {
 		const time = event.target.value;
 
 		setTime(time);
+		reset();
 		console.log(time);
 	};
 
@@ -72,41 +65,18 @@ function Home() {
 		{ label: "2010s", value: "2010" },
 	];
 
-	// ['1970s', '1980s', '1990s', '2000s', '2010s'];
-	function yearQuestion({ onYearSelect }) {}
-
 	const handleYearSelect = (event) => {
 		const year = event.target.value;
 
 		setYear(year);
+		reset();
 		console.log(year);
 	};
 
-	// const addMovieHistory = async (movieid) => {
-	// 	console.log(id);
-	// 	try {
-	// 		const response = await fetch("/api/moviehistory", {
-	// 			method: "POST",
-
-	// 			headers: {
-	// 				Authorization: `Bearer ${localStorage.getItem("token")}`,
-	// 			},
-	// 		});
-
-	// 		if (!response.ok) {
-	// 			throw new Error(
-	// 				`Server responded with status ${response.status}: ${errorMessage}`
-	// 			);
-	// 		}
-
-	// 		const movieHistoryData = await response.json();
-	// 		setMovieHistory(movieHistoryData);
-	// 	} catch (error) {
-	// 		console.error("Oops, something went wrong", error);
-	// 	}
-	// };
-
 	//function to get random movie suggestion based on the question inputs
+
+	const navigate = useNavigate();
+
 	const getRandomMovie = async () => {
 		try {
 			console.log(genre);
@@ -131,7 +101,6 @@ function Home() {
 					setRandomMovie(movieDisplay[0]);
 					//set to true so error message can display if needed
 					setHasSearched(true);
-					// addMovieHistory(movieDisplay[0].MovieID);
 				} else {
 					setError(
 						"Uh oh, we weren't able to find a match. Click Movie Generator to try again."
@@ -145,6 +114,25 @@ function Home() {
 		}
 	};
 
+	const addMovieHistory = async (movieid) => {
+		try {
+			console.log("Payload:", { movieid });
+			const response = await fetch("http://localhost:5173/api/moviehistory", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${localStorage.getItem("token")}`,
+				},
+				body: JSON.stringify({ movieid: movieid }),
+			});
+			const movieHistoryData = await response.json();
+
+			setMovieHistory(movieHistoryData);
+		} catch (error) {
+			console.error("Oops, something went wrong", error);
+		}
+	};
+
 	//submit function to call on getRandomMovie function
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -152,82 +140,84 @@ function Home() {
 		getRandomMovie(genre, time, year);
 	};
 
-	//function to reset values / remove movie suggestion
-	const handleReset = () => {
-		setGenre("");
-		setTime("");
-		setYear("");
+	//click function to add to movie history
+	const handleClick = (movieID) => {
+		console.log(movieID);
+		addMovieHistory(movieID);
+		navigate("/moviehistory");
+	};
+
+	//function to reset values / remove movie suggestion -- works on changing the selected values
+	function reset() {
 		setRandomMovie(null);
 		setError("");
 		setHasSearched(false);
-	};
+	}
 
 	return (
 		<div className="pageContainer">
 			<div className="movieGeneratorBox">
 				<h1 className="titleMovieGenerator">Movie Generator</h1>
-
-				<div className="centered">
-					<label className="questions">
-						What are you in the mood for?
-						<select
-							className="form-select"
-							name="genre"
-							onChange={handleGenreSelect}
-							value={genre}>
-							{/* map through different options, display .label in the form-select */}
-							{genres.map((genre) => (
-								<option key={genre.value} value={genre.value}>
-									{genre.label}
-								</option>
-							))}
-						</select>
-					</label>{" "}
-				</div>
-
-				<div className="centered">
-					<label className="questions">
-						How long have you got?
-						<select
-							className="form-select"
-							name="time"
-							onChange={handleTimeSelect}
-							value={time}>
-							{times.map((time) => (
-								<option key={time.value} value={time.value}>
-									{time.label}
-								</option>
-							))}
-						</select>
-					</label>
-				</div>
-
-				<div className="centered">
-					<label className="questions">
-						When was it released?
-						<select
-							className="form-select"
-							name="year"
-							onChange={handleYearSelect}
-							value={year}>
-							{years.map((year) => (
-								<option key={year.value} value={year.value}>
-									{year.label}
-								</option>
-							))}
-						</select>
-					</label>
-				</div>
-				<div>
-					<div className="buttonSection">
-						<button className="button" onClick={handleSubmit}>
-							Submit
-						</button>
-						<button className="button" onClick={handleReset}>
-							Reset
-						</button>
+				<form onSubmit={handleSubmit}>
+					<div className="centered">
+						<label className="questions">
+							What are you in the mood for?
+							<select
+								className="form-select"
+								name="genre"
+								onChange={handleGenreSelect}
+								value={genre}>
+								{/* map through different options, display .label in the form-select */}
+								{genres.map((genre) => (
+									<option key={genre.value} value={genre.value}>
+										{genre.label}
+									</option>
+								))}
+							</select>
+						</label>{" "}
 					</div>
-				</div>
+
+					<div className="centered">
+						<label className="questions">
+							How long have you got?
+							<select
+								className="form-select"
+								name="time"
+								onChange={handleTimeSelect}
+								value={time}>
+								{times.map((time) => (
+									<option key={time.value} value={time.value}>
+										{time.label}
+									</option>
+								))}
+							</select>
+						</label>
+					</div>
+
+					<div className="centered">
+						<label className="questions">
+							When was it released?
+							<select
+								className="form-select"
+								name="year"
+								onChange={handleYearSelect}
+								value={year}>
+								{years.map((year) => (
+									<option key={year.value} value={year.value}>
+										{year.label}
+									</option>
+								))}
+							</select>
+						</label>
+					</div>
+					<div>
+						<div className="buttonSection">
+							<button type="submit" className="button">
+								Submit
+							</button>
+						</div>
+					</div>
+				</form>
 			</div>
 			{randomMovie ? (
 				<div className="results">
@@ -241,10 +231,20 @@ function Home() {
 				// display error message if no movie is found and hasSearched is set to true
 				hasSearched && (
 					<div className="errorMessage">
-						Uh oh, we weren't able to find a match. Click Reset to try again.
+						Uh oh, we weren't able to find a match. Try again!
 					</div>
 				)
 			)}
+			<div>
+				{" "}
+				{randomMovie && (
+					<button
+						className="addHistory"
+						onClick={() => handleClick(randomMovie.MovieID)}>
+						Add
+					</button>
+				)}
+			</div>
 		</div>
 	);
 }
