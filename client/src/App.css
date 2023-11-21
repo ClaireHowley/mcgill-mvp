@@ -52,6 +52,10 @@
 	padding-left: 40%;
 }
 
+.topOfPage {
+	background-color: #fff;
+}
+
 /* menu options from app.jsx */
 .menu {
 	display: flex;
@@ -70,6 +74,7 @@
 	text-align: center;
 	cursor: pointer;
 	transition: border-color 0.25s;
+	padding: 20px;
 	/* display: grid; */
 	/* grid-template-columns: repeat(
 		5,
@@ -78,6 +83,10 @@
 	/* grid-column-gap: 10px;  */
 	background-color: gold;
 	color: #515748;
+}
+
+#movieGeneratorButton {
+	padding-right: 20%;
 }
 
 /* all menu options from app.jsx */
@@ -116,6 +125,14 @@ button:hover {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	border: 1px solid red;
+	padding-left: 5px;
+	margin-top: 250px; /* Adjust the margin to create space around the box */
+	margin-right: 400px;
+	border-radius: 5px;
+	max-width: 300px; /* Set a maximum width for the error message */
+	max-height: 200px;
+	background-color: rgba(255, 0, 0, 0.1);
 }
 
 /* movie results on movie generator page - text and image */
@@ -183,16 +200,6 @@ button:hover {
 	padding-top: 30px;
 }
 
-/* single button */
-#singleButton {
-	display: flex;
-	text-align: center;
-	width: 100%;
-	align-items: center;
-	justify-content: center;
-	margin-bottom: 25px;
-}
-
 .titleAllMovies {
 	display: flex;
 	flex-direction: column;
@@ -206,48 +213,33 @@ button:hover {
 }
 
 /* list on all movies page */
-.movieContainer {
-	background-image: url("/posters/untouchables.jpg");
-	background-size: cover; /*covers all viewpoint */
-	background: linear-gradient(
-			rgba(255, 255, 255, 0.5),
-			rgba(255, 255, 255, 0.5)
-		),
-		url("/posters/untouchables.jpg"); /* Add a gradient overlay to create the fading effect */
-	background-size: cover;
-	background-position: center;
-	background-repeat: no-repeat;
-	height: 100%; /* set to cover the whole viewpoint height*/
+.movieList {
+	display: flex;
+	overflow-x: auto; /* Enable horizontal scrolling */
+	scroll-behavior: smooth; /* Enable smooth scrolling behavior */
 }
 
 .movieList a {
-	display: flex;
+	display: grid;
 	white-space: nowrap;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	text-align: center;
-	color: black;
-	text-decoration: none;
-	margin-top: 10px;
-	margin-bottom: 20px;
+	margin: 20px;
+	max-height: 350px;
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
-	overflow-x: auto; /* Enable horizontal scrolling */
-	scroll-behavior: smooth; /* Enable smooth scrolling behavior */
+	margin-right: 20px;
+	transition: transform 0.3s ease; /* Add a smooth transition effect */
 }
-
 /* list of movies when hovered over */
 .movieList a:hover {
-	color: dimgray;
-	text-decoration: underline;
+	transform: scale(1.1);
 }
 
-/* movie spotlight / info on movie page */
 .movieInfo {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+	display: grid;
+	grid-template-columns: 1fr 1fr; /* Use a space, not a comma */
 	text-align: center;
 	color: black;
 	text-decoration: none;
@@ -257,13 +249,72 @@ button:hover {
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+/* single button */
+#singleButton {
+	display: flex;
+	text-align: center;
+	width: 100%;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 25px;
+}
+
 /* poster for movie spotlight / info on movie page */
 .moviePoster {
 	margin-top: 20px;
 	margin-bottom: 20px;
 }
+/*movie history page*/
 
-/* login and register box*/
+.movieHistory {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 10px;
+	margin-top: 30px;
+	margin-left: 30px;
+}
+
+.movieHistoryItem {
+	position: relative;
+}
+
+.movieHistory img {
+	width: 300px;
+	height: 500px;
+	border-radius: 8px;
+}
+
+.removeFromHistory {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 250px;
+	height: 350px;
+	background: rgba(0, 0, 0, 0.5);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+.movieHistoryItem:hover .removeFromHistory {
+	opacity: 1;
+}
+
+.removeFromHistory button {
+	background: none;
+	border: none;
+	color: white;
+	cursor: pointer;
+	font-size: 16px;
+}
+
+.removeFromHistory button:hover {
+	text-decoration: underline;
+}
+
+/* login and signup box*/
 .loginBox {
 	display: flex;
 	flex-direction: column;

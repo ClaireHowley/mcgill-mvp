@@ -42,15 +42,20 @@ export default function App() {
 	return (
 		<AuthContext.Provider value={authObject}>
 			<div className="homepage">
-				<div className="titleMain">
-					<h1>GoodMovies for GoodFellas</h1>
-				</div>{" "}
-				<div className="subheading">
-					<h4>Which Robert de Niro movie should you watch?</h4>
+				<div className="topOfPage">
+					<div className="titleMain">
+						<h1>GoodMovies for GoodFellas</h1>
+					</div>{" "}
+					<div className="subheading">
+						<h4>Which Robert de Niro movie should you watch?</h4>
+					</div>
 				</div>
 				<nav>
 					<div className="menu">
-						<button type="button" className="menuButtons">
+						<button
+							type="button"
+							className="menuButtons"
+							id="movieGeneratorButton">
 							<Link to="/">Movie Generator</Link>
 						</button>
 

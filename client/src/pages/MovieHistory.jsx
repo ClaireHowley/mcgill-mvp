@@ -26,16 +26,48 @@ export default function MovieHistory() {
 		displayMovieHistory();
 	}, []);
 
+	const removeFromHistory = (index) => {
+		const updatedList = [...movieHistoryList];
+		updatedList.splice(index, 1);
+		setMovieHistoryList(updatedList);
+	};
+
+	//ATTEMPTED REMOVAL FROM THE BACKEND, NOT WORKING
+
+	// const removeFromHistory = async (index) => {
+	// 	try {
+	// 		// movieid to be removed
+	// 		const movieIdToRemove = movieHistoryList[index].movieid;
+
+	// 		// remove the movie from server
+	// 		await fetch(`http://localhost:5173/api/moviehistory/${movieIdToRemove}`, {
+	// 			method: "DELETE",
+	// 			headers: {
+	// 				"Content-Type": "application/json",
+	// 				Authorization: `Bearer ${localStorage.getItem("token")}`,
+	// 			},
+	// 		});
+
+	// 		// update movie history data after removal
+	// 		displayMovieHistory();
+	// 	} catch (error) {
+	// 		console.error("Error removing movie:", error);
+	// 	}
+	// };
+
 	return (
-		<div>
+		<div className="movieHistory">
 			{movieHistoryList &&
-				movieHistoryList.map((item) => (
-					<div key={item.historyid}>
+				movieHistoryList.map((item, index) => (
+					<div key={item.historyid} className="movieHistoryItem">
 						<img
 							src={`/posters/${item.movieid}.jpg`}
 							alt="Movie Poster"
 							style={{ maxWidth: "250px", height: "auto" }}
 						/>
+						<div className="removeFromHistory">
+							<button onClick={() => removeFromHistory(index)}>Remove</button>
+						</div>
 					</div>
 				))}
 		</div>

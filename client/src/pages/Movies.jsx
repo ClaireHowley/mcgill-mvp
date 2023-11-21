@@ -30,7 +30,6 @@ export default function App() {
 				{movies.map((m) => (
 					<div key={m.MovieID}>
 						<Link to={`/movies/${m.MovieID}`}>
-							{m.MovieName} ({m.MovieDirector}, {m.MovieYear}){" "}
 							<img
 								src={`/posters/${m.MovieID}.jpg`}
 								alt="Movie Poster"
