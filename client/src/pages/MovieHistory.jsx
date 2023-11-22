@@ -26,34 +26,30 @@ export default function MovieHistory() {
 		displayMovieHistory();
 	}, []);
 
-	const removeFromHistory = (index) => {
-		const updatedList = [...movieHistoryList];
-		updatedList.splice(index, 1);
-		setMovieHistoryList(updatedList);
+	const removeFromHistory = async (index) => {
+		try {
+			const movieIdToRemove = movieHistoryList[index].movieid;
+
+			// Remove the movie locally
+			const updatedMovieHistory = [...movieHistoryList];
+			updatedMovieHistory.splice(index, 1);
+			setMovieHistoryList(updatedMovieHistory);
+
+			// Remove the movie from the server
+			await fetch(`http://localhost:5173/api/moviehistory/${movieIdToRemove}`, {
+				method: "DELETE",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${localStorage.getItem("token")}`,
+				},
+			});
+
+			// Fetch the updated list (optional)
+			displayMovieHistory();
+		} catch (error) {
+			console.error("Error removing movie:", error);
+		}
 	};
-
-	//ATTEMPTED REMOVAL FROM THE BACKEND, NOT WORKING
-
-	// const removeFromHistory = async (index) => {
-	// 	try {
-	// 		// movieid to be removed
-	// 		const movieIdToRemove = movieHistoryList[index].movieid;
-
-	// 		// remove the movie from server
-	// 		await fetch(`http://localhost:5173/api/moviehistory/${movieIdToRemove}`, {
-	// 			method: "DELETE",
-	// 			headers: {
-	// 				"Content-Type": "application/json",
-	// 				Authorization: `Bearer ${localStorage.getItem("token")}`,
-	// 			},
-	// 		});
-
-	// 		// update movie history data after removal
-	// 		displayMovieHistory();
-	// 	} catch (error) {
-	// 		console.error("Error removing movie:", error);
-	// 	}
-	// };
 
 	return (
 		<div className="movieHistory">
@@ -73,3 +69,9 @@ export default function MovieHistory() {
 		</div>
 	);
 }
+
+// const removeFromHistory = (index) => {
+// 	const updatedList = [...movieHistoryList];
+// 	updatedList.splice(index, 1);
+// 	setMovieHistoryList(updatedList);
+// };

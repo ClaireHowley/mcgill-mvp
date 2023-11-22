@@ -43,22 +43,22 @@ router.get("/", userShouldBeLoggedIn, async (req, res) => {
 
 //ATTEMPT AT DELETING
 
-// router.delete("/:movieid", userShouldBeLoggedIn, async (req, res) => {
-// 	const userid = req.user_id;
-// 	const movieid = req.params.movieid;
+router.delete("/:movieid", userShouldBeLoggedIn, async (req, res) => {
+	const userid = req.user_id;
+	const movieid = req.params.movieid;
 
-// 	try {
-// 		const results = await db(
-// 			`DELETE FROM moviehistory WHERE movieid = ${movieid} AND userid = ${userid}`
-// 		);
+	try {
+		const results = await db(
+			`DELETE FROM moviehistory WHERE movieid = ${movieid} AND userid = ${userid}`
+		);
 
-// 		res.status(200).json({ message: "Movie deleted successfully" });
-// 	} catch (err) {
-// 		console.error("Error deleting movie:", err);
-// 		res
-// 			.status(500)
-// 			.json({ error: "Internal Server Error", details: err.message });
-// 	}
-// });
+		res.status(200).json({ message: "Movie deleted successfully" });
+	} catch (err) {
+		console.error("Error deleting movie:", err);
+		res
+			.status(500)
+			.json({ error: "Internal Server Error", details: err.message });
+	}
+});
 
 module.exports = router;

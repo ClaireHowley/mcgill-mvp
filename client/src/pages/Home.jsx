@@ -141,9 +141,9 @@ function Home() {
 	};
 
 	//click function to add to movie history
-	const handleClick = (movieID) => {
+	const handleClick = async (movieID) => {
 		console.log(movieID);
-		addMovieHistory(movieID);
+		await addMovieHistory(movieID);
 		navigate("/moviehistory");
 	};
 
@@ -239,7 +239,7 @@ function Home() {
 				{" "}
 				{randomMovie && (
 					<button
-						className="addHistory"
+						className="addHistoryButton"
 						onClick={() => handleClick(randomMovie.MovieID)}>
 						Add
 					</button>

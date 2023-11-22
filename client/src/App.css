@@ -245,7 +245,7 @@ button:hover {
 	text-decoration: none;
 	margin-top: 10px;
 	margin-bottom: 10px;
-	font-size: 15px;
+	font-size: 30px;
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
@@ -265,6 +265,18 @@ button:hover {
 	margin-bottom: 20px;
 }
 /*movie history page*/
+
+.addHistoryButton {
+	padding: 10px;
+	background-color: #4caf50;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	position: relative;
+	margin-bottom: 50%;
+	margin-left: 150%;
+}
 
 .movieHistory {
 	display: grid;
